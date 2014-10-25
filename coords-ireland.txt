@@ -1,0 +1,20 @@
+latitude
+(2 deg = 270 px)
+135 px / deg
+0.00741 px / deg
+
+top = 57.356 deg N
+bottom = 48 - 0.348 = 47.652 deg N
+
+longitude
+(2 deg = 165 px)
+82.5 px / deg
+0.012121 deg / px
+1.576 deg = 130 px
+
+left = 17 + 1.576 = 17.576 deg W
+right = 6 - 1.576 = 4.424 deg W
+
+
+top left = 57.356 deg N, 17.576 deg W
+bottom right = 47.652 deg N, 4.424 deg W

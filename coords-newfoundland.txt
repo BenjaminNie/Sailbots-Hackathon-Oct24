@@ -1,0 +1,15 @@
+longitude:
+2 deg = 121 px
+deg / px = 0.01653
+left margin = 100 px = 1.653 deg
+right margin = 104 px = 1.719 deg
+
+latitude:
+2 deg = 179 px
+deg / px = 0.01117
+top margin = 164 px = 1.832 deg
+bottom maring = 8 px = 0.0894 deg
+
+
+NW = (51.832,-59.653)
+SE = (41.911,-44.281)
