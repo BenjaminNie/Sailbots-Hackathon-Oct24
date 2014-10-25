@@ -1,6 +1,9 @@
 from scipy import misc
+from PIL import Image
+import numpy as np
 import json
 import sys
+import scipy
 
 class CoordinateInFishzone():
     def __init__(self):
@@ -9,14 +12,7 @@ class CoordinateInFishzone():
         self.NW = (0,0)
         self.SE = (0,0)
 
-    def coord_to_index(self, coord):
-        x = (coord[1] - self.NW[1])/(self.SE[1] - self.NW[1]) * len(self.pixel_array[0]) 
-        y = (coord[0] - self.SE[0])/(self.NW[0] - self.SE[0]) * len(self.pixel_array) 
-       
-        return int(x),int(y)
-
-    def fishery_prob(self,coord):
-        x,y = self.coord_to_index(coord)
+    def fishery_prob(self, x, y):
         RGB_value = self.pixel_array[y][x]  # returns tuple
         try:
             return self.color_legend[tuple(RGB_value[0:3])]  # take element 0-2 of tuple as key
@@ -49,6 +45,17 @@ class CoordinateInFishzone():
         self.NW = string_to_float_tuple(data["NW_coord"])
         self.SE = string_to_float_tuple(data["SE_coord"])
 
+    def convert_image(self):
+        self.output = misc.imread('map.png')
+        print len(self.output)
+        print len(self.output[0])
+        for i in range(0, len(self.output)-1):
+            for j in range(0, len(self.output[0]-1)):
+                self.output[i][j] = self.fishery_prob(j, i)
+        #scipy.misc.imsave('outfile.png', output)
+        self.output = Image.fromarray(np.uint8(self.output))
+        self.output.save('out.png')
+
 def string_to_int_tuple(string):
     return tuple([int(x) for x in string.strip('(').strip(')').split(',')])
 
@@ -61,6 +68,7 @@ from CoordinateInFishzone import *
 zone = CoordinateInFishzone()
 zone.get_json('config.txt')
 zone.get_image()
+zone.convert_image()
 zone.fishery_prob( (55, -15) )
 zone.fishery_prob_test(429, 128)
 """
