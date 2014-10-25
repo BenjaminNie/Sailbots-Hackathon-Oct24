@@ -7,10 +7,18 @@ class CoordinateInFishzone():
         self.color_legend = {}
         self.NW = (0,0)
         self.SE = (0,0)
-        self.RGB_value = 0  # remove after, testing purposes
 
     def coord_to_index(self, coord):
 
+        # error check
+        if coord[0] > self.NW[0] or \
+           coord[1] < self.NW[1] or \
+           coord[0] < self.SE[0] or \
+           coord[1] > self.SE[1]:
+
+            print ("Error occured.  Coordinates out of bounds")
+            return
+            
         x = (coord[1] - self.NW[1])/(self.SE[1] - self.NW[1]) * len(self.pixel_array[0]) 
         y = (coord[0] - self.SE[0])/(self.NW[0] - self.SE[0]) * len(self.pixel_array) 
        
