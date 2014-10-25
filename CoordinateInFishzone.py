@@ -1,5 +1,6 @@
 from scipy import misc
 import json
+import sys
 
 class CoordinateInFishzone():
     def __init__(self):
@@ -9,16 +10,6 @@ class CoordinateInFishzone():
         self.SE = (0,0)
 
     def coord_to_index(self, coord):
-
-        # error check
-        if coord[0] > self.NW[0] or \
-           coord[1] < self.NW[1] or \
-           coord[0] < self.SE[0] or \
-           coord[1] > self.SE[1]:
-
-            print ("Error occured.  Coordinates out of bounds")
-            return
-            
         x = (coord[1] - self.NW[1])/(self.SE[1] - self.NW[1]) * len(self.pixel_array[0]) 
         y = (coord[0] - self.SE[0])/(self.NW[0] - self.SE[0]) * len(self.pixel_array) 
        
@@ -26,9 +17,34 @@ class CoordinateInFishzone():
 
     def fishery_prob(self,coord):
         x,y = self.coord_to_index(coord)
+<<<<<<< HEAD
         RGB_value = self.pixel_array[y][x]  # returns tuple
+        try:
+            return self.color_legend[tuple(RGB_value[0:3])]  # take element 0-2 of tuple as key
+        except:
+            smallest_dist = sys.maxsize+1
+            smallest_dist_value = sys.maxsize+1
+            for key in self.color_legend.keys():
+                color_distance = ((RGB_value[0]-key[0])**2+(RGB_value[1]-key[1])**2+(RGB_value[2]-key[2])**2)
+                if color_distance < smallest_dist:
+                    smallest_dist = color_distance
+                    smallest_dist_value = self.color_legend[key]
+            return smallest_dist_value
+=======
 
-        return self.color_legend[tuple(RGB_value[0:3])]  # take element 0-2 of tuple as key
+        try:
+            RGB_value = self.pixel_array[y][x]  # returns tuple
+
+        except IndexError:
+            print ("input coordinates are out of range")
+
+        try:
+            return self.color_legend[tuple(RGB_value[0:3])]  # take element 0-2 of tuple as key
+
+        except KeyError:
+            # derek's exception handler
+            continue
+>>>>>>> origin/master
 
     def get_image(self):
         self.pixel_array = misc.imread('map.png')
@@ -62,4 +78,5 @@ zone = CoordinateInFishzone()
 zone.get_json('config.txt')
 zone.get_image()
 zone.fishery_prob( (55, -15) )
+zone.fishery_prob_test(429, 128)
 """
