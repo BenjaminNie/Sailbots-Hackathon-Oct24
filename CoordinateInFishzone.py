@@ -61,5 +61,5 @@ from CoordinateInFishzone import *
 zone = CoordinateInFishzone()
 zone.get_json('config.txt')
 zone.get_image()
-zone.fishery_prob( (55, 15) )
+zone.fishery_prob( (55, -15) )
 """
