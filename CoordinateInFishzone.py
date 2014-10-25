@@ -9,16 +9,6 @@ class CoordinateInFishzone():
         self.SE = (0,0)
 
     def coord_to_index(self, coord):
-
-        # error check
-        if coord[0] > self.NW[0] or \
-           coord[1] < self.NW[1] or \
-           coord[0] < self.SE[0] or \
-           coord[1] > self.SE[1]:
-
-            print ("Error occured.  Coordinates out of bounds")
-            return
-            
         x = (coord[1] - self.NW[1])/(self.SE[1] - self.NW[1]) * len(self.pixel_array[0]) 
         y = (coord[0] - self.SE[0])/(self.NW[0] - self.SE[0]) * len(self.pixel_array) 
        
@@ -26,7 +16,12 @@ class CoordinateInFishzone():
 
     def fishery_prob(self,coord):
         x,y = self.coord_to_index(coord)
-        RGB_value = self.pixel_array[y][x]  # returns tuple
+
+        try:
+            RGB_value = self.pixel_array[y][x]  # returns tuple
+
+        except IndexError:
+            # Derek's exception handler
 
         return self.color_legend[tuple(RGB_value[0:3])]  # take element 0-2 of tuple as key
 
