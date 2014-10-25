@@ -21,9 +21,14 @@ class CoordinateInFishzone():
             RGB_value = self.pixel_array[y][x]  # returns tuple
 
         except IndexError:
-            # Derek's exception handler
+            print ("input coordinates are out of range")
 
-        return self.color_legend[tuple(RGB_value[0:3])]  # take element 0-2 of tuple as key
+        try:
+            return self.color_legend[tuple(RGB_value[0:3])]  # take element 0-2 of tuple as key
+
+        except KeyError:
+            # derek's exception handler
+            continue
 
     def get_image(self):
         self.pixel_array = misc.imread('map.png')
