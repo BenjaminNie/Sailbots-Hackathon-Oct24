@@ -17,7 +17,6 @@ class CoordinateInFishzone():
 
     def fishery_prob(self,coord):
         x,y = self.coord_to_index(coord)
-<<<<<<< HEAD
         RGB_value = self.pixel_array[y][x]  # returns tuple
         try:
             return self.color_legend[tuple(RGB_value[0:3])]  # take element 0-2 of tuple as key
@@ -30,21 +29,6 @@ class CoordinateInFishzone():
                     smallest_dist = color_distance
                     smallest_dist_value = self.color_legend[key]
             return smallest_dist_value
-=======
-
-        try:
-            RGB_value = self.pixel_array[y][x]  # returns tuple
-
-        except IndexError:
-            print ("input coordinates are out of range")
-
-        try:
-            return self.color_legend[tuple(RGB_value[0:3])]  # take element 0-2 of tuple as key
-
-        except KeyError:
-            # derek's exception handler
-            continue
->>>>>>> origin/master
 
     def get_image(self):
         self.pixel_array = misc.imread('map.png')
